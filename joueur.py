@@ -27,7 +27,10 @@ def ajouterTresor(joueur,tresor):
         tresor un entier strictement positif
     la fonction ne retourne rien mais modifie le joueur
     """
-    joueur[1].append(tresor)
+    if tresor in joueur[1]:
+      pass
+    else:
+      joueur[1].append(tresor)
 
 def prochainTresor(joueur):
     """

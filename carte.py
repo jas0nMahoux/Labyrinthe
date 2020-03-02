@@ -9,7 +9,6 @@
    Ce module gère les cartes du labyrinthe. 
 """
 import random
-#Mahoux
 
 """
 la liste des caractères semi-graphiques correspondant aux différentes cartes
@@ -27,49 +26,128 @@ def Carte( nord, est, sud, ouest, tresor=0, pions=[]):
     tresor est le numéro du trésor qui se trouve sur la carte (0 s'il n'y a pas de trésor)
     pions est la liste des pions qui sont posés sur la carte (un pion est un entier entre 1 et 4)
     """
-    pass
+    c={}
+    cardinal=[nord, est, sud, ouest]
+    binaire=""
+    for i in cardinal:
+      if i==True:
+        binaire+="1"
+    indice_carte=int(binaire, 2)
+    c["carte"]=listeCartes[indice_carte]
+    c["tresor"]=tresor
+    c["pions"]=pions
+    return c
 
 def estValide(c):
     """
     retourne un booléen indiquant si la carte est valide ou non c'est à dire qu'elle a zéro un ou deux murs
     paramètre: c une carte
     """
-    pass
+    if c["carte"]=='Ø':
+      return False
+    else: 
+      return True
+
 
 def murNord(c):
     """
     retourne un booléen indiquant si la carte possède un mur au nord
     paramètre: c une carte
     """
-    pass
+    trouve=False
+    i=0
+    while i<=len(listeCartes) and not trouve:
+      if c["carte"]==listeCartes[i]:
+        trouve=True
+      i+=1
+    if i-1==1:
+      return True 
+    elif i-1==3:
+      return True
+    elif i-1==5:
+      return True
+    elif i-1==9:
+      return True
+    else:
+      return False       
 
+    
 def murSud(c):
     """
     retourne un booléen indiquant si la carte possède un mur au sud
     paramètre: c une carte
     """
-    pass
+    trouve=False
+    i=0
+    while i<=len(listeCartes) and not trouve:
+      if c["carte"]==listeCartes[i]:
+        trouve=True
+      i+=1
+    if i-1==4:
+      return True 
+    elif i-1==5:
+      return True
+    elif i-1==6:
+      return True
+    elif i-1==12:
+      return True
+    else:
+      return False
+    
+
 
 def murEst(c):
     """
     retourne un booléen indiquant si la carte possède un mur à l'est
     paramètre: c une carte
     """
-    pass
+    trouve=False
+    i=0
+    while i<=len(listeCartes) and not trouve:
+      if c["carte"]==listeCartes[i]:
+        trouve=True
+      i+=1
+    if i-1==2:
+      return True 
+    elif i-1==3:
+      return True
+    elif i-1==4:
+      return True
+    elif i-1==6:
+      return True
+    else:
+      return False
+    
 
 def murOuest(c):
     """
     retourne un booléen indiquant si la carte possède un mur à l'ouest
     paramètre: c une carte
     """
-    pass
+    trouve=False
+    i=0
+    while i<=len(listeCartes) and not trouve:
+      if c["carte"]==listeCartes[i]:
+        trouve=True
+      i+=1
+    if i-1==8:
+      return True 
+    elif i-1==9:
+      return True
+    elif i-1==10:
+      return True
+    elif i-1==12:
+      return True
+    else:
+      return False
+    
 
 def getListePions(c):
     """
     retourne la liste des pions se trouvant sur la carte
     paramètre: c une carte
     """
-    pass
+    return c["pions"]
 
 def setListePions(c,listePions):
     """
@@ -78,14 +156,17 @@ def setListePions(c,listePions):
                 listePions: la liste des pions à poser
     Cette fonction ne retourne rien mais modifie la carte
     """
-    pass
+    c["pions"]=listePions
 
 def getNbPions(c):
     """
     retourne le nombre de pions se trouvant sur la carte
     paramètre: c une carte
     """
-    pass
+    Nb_pions=0
+    for x in C["pions"]:
+      Nb_pions+=1
+    return Nb_pions
 
 def possedePion(c,pion):
     """
@@ -93,15 +174,17 @@ def possedePion(c,pion):
     paramètres: c une carte
                 pion un entier compris entre 1 et 4
     """
-    pass
-
+    if pion in c["pions"]:
+      return True
+    else:
+      return False
 
 def getTresor(c):
     """
     retourne la valeur du trésor qui se trouve sur la carte (0 si pas de trésor)
     paramètre: c une carte
     """
-    pass
+    return c["tresor"]
 
 def prendreTresor(c):
     """
@@ -109,7 +192,11 @@ def prendreTresor(c):
     paramètre: c une carte
     résultat l'entier représentant le trésor qui était sur la carte
     """
-    pass
+    tresor=c["tresor"]
+    c["tresor"]=0
+    return tresor
+
+
 def mettreTresor(c,tresor):
     """
     met le trésor passé en paramètre sur la carte et retourne la valeur de l'ancien trésor
@@ -126,7 +213,8 @@ def prendrePion(c, pion):
                 pion un entier compris entre 1 et 4
     Cette fonction modifie la carte mais ne retourne rien
     """
-    pass
+    if len(c["pions"])>0:
+      c["pions"].remove(pion)
 
 def poserPion(c, pion):
     """
@@ -135,7 +223,8 @@ def poserPion(c, pion):
                 pion un entier compris entre 1 et 4
     Cette fonction modifie la carte mais ne retourne rien
     """
-    pass
+    if pion not in c["pions"]:
+      c["pions"].append(pion)
 
 def tournerHoraire(c):
     """
@@ -144,6 +233,7 @@ def tournerHoraire(c):
     Cette fonction modifie la carte mais ne retourne rien    
     """
     pass
+    
 
 def tournerAntiHoraire(c):
     """
@@ -224,3 +314,28 @@ def passageEst(carte1,carte2):
     résultat un booléen    
     """
     pass
+
+
+
+if __name__=='__main__':
+  C=Carte( True, False, False, False, tresor=1, pions=[])
+  print(C)
+  print(estValide(C))
+  print(murNord(C))
+  print(murSud(C))
+  print(murOuest(C))
+  print(murEst(C))
+  print(getListePions(C))
+  print(C)
+  setListePions(C,[1,2])
+  print(C)
+  print(getNbPions(C))
+  print(possedePion(C,2))
+  print(getTresor(C))
+  print(prendreTresor(C))
+  print(getTresor(C))
+  print(C)
+  prendrePion(C, 2)
+  print(C)
+  poserPion(C, 3)
+  print(C)
