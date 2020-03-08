@@ -39,12 +39,16 @@ def initAleatoireJoueurCourant(joueurs):
     paramètre: joueurs un liste de joueurs
     cette fonction ne retourne rien mais modifie la liste des joueurs
     """
+<<<<<<< HEAD
     pass
 
 
 def distribuerTresors(joueurs,nbTresors=24, nbTresorMax=0):
     random.shuffle(joueurs)
 
+=======
+    random.shuffle(joueurs)
+>>>>>>> origin/master
 def distribuerTresors(joueurs,nbTresors=24, nbTresorMax=2):
     """
     distribue de manière aléatoire des trésors entre les joueurs.
@@ -160,8 +164,11 @@ def joueurCourantAFini(joueurs):
     résultat: un booleen indiquant si le joueur courant a fini
     """
     pass
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/master
 if __name__=='__main__':
   j=joueurs
   print(j)
@@ -177,4 +184,8 @@ if __name__=='__main__':
   print(getJoueurCourant(joueurs))
   print(nbTresorsRestantsJoueur(joueurs,numJoueur=0))
   print(numJoueurCourant(joueurs))
+<<<<<<< HEAD
   print(nomJoueurCourant(joueurs))
+=======
+  print(nomJoueurCourant(joueurs))
+>>>>>>> origin/master

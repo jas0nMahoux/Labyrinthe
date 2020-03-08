@@ -112,13 +112,19 @@ def decalageColonneEnHaut(matrice, numCol, nouvelleValeur=0):
     résultat: la valeur de la case "ejectée" par le décalage
     """
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> origin/master
     valeur_a_ejecter=matrice[0][numCol]
     for i in range(len(matrice)-1):
       matrice[i][numCol]=matrice[i+1][numCol]
     matrice[-1][numCol]=nouvelleValeur
     return valeur_a_ejecter
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 def decalageColonneEnBas(matrice, numCol, nouvelleValeur=0):
     """
@@ -129,6 +135,7 @@ def decalageColonneEnBas(matrice, numCol, nouvelleValeur=0):
                  nouvelleValeur la valeur à placer
     résultat: la valeur de la case "ejectée" par le décalage
     """
+<<<<<<< HEAD
 <<<<<<< HEAD
     a=matrice[-1][numCol]
     Matrice1=matrice
@@ -143,6 +150,8 @@ if __name__=='__main__':
   print(decalageColonneEnBas(Matrice, 1,12))
   print(Matrice)
 =======
+=======
+>>>>>>> origin/master
     valeur_a_ejecter=matrice[-1][numCol]
     valeur_stocke=[]
     for i in range(len(matrice)-1):
@@ -154,5 +163,9 @@ if __name__=="__main__" :
   x=matrice
   print(x)
   print(decalageColonneEnBas(x, numCol=3, nouvelleValeur=9))
+<<<<<<< HEAD
+  print(x)
+>>>>>>> origin/master
+=======
   print(x)
 >>>>>>> origin/master
