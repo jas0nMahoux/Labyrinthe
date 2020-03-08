@@ -18,8 +18,12 @@ def ListeJoueurs(nomsJoueurs):
     paramètre: nomsJoueurs une liste de chaines de caractères
     résultat: la liste des joueurs avec un joueur courant mis à 0
     """
-    pass
+    listejoueurs=[]
+    for elem in nomsJoueurs:
+      listejoueurs.append(Joueur(elem))
+    return listejoueurs
 
+joueurs=ListeJoueurs(['jason','emerick','toto'])
 def ajouterJoueur(joueurs, joueur):
     """
     ajoute un nouveau joueur à la fin de la liste
@@ -27,7 +31,7 @@ def ajouterJoueur(joueurs, joueur):
                 joueur le joueur à ajouter
     cette fonction ne retourne rien mais modifie la liste des joueurs
     """
-    pass
+    joueurs.append(Joueur(joueur))
 
 def initAleatoireJoueurCourant(joueurs):
     """
@@ -39,6 +43,9 @@ def initAleatoireJoueurCourant(joueurs):
 
 
 def distribuerTresors(joueurs,nbTresors=24, nbTresorMax=0):
+    random.shuffle(joueurs)
+
+def distribuerTresors(joueurs,nbTresors=24, nbTresorMax=2):
     """
     distribue de manière aléatoire des trésors entre les joueurs.
     paramètres: joueurs la liste des joueurs
@@ -50,7 +57,13 @@ def distribuerTresors(joueurs,nbTresors=24, nbTresorMax=0):
                              de trésor possible  
     cette fonction ne retourne rien mais modifie la liste des joueurs
     """
-    pass
+    if nbTresorMax == 0:
+        pass
+    for i in range(nbTresors):
+      if i<nbTresorMax:
+        nb_aleatoire=random.randint(0,len(joueurs))
+        joueurs[nb_aleatoire]["tresor"].append(i)
+    #pas claire
 
 def changerJoueurCourant(joueurs):
     """
@@ -58,7 +71,9 @@ def changerJoueurCourant(joueurs):
     paramètres: joueurs la liste des joueurs
     cette fonction ne retourne rien mais modifie la liste des joueurs
     """   
-    pass
+    d=joueurs[1]
+    joueurs[1]=joueurs[0]
+    joueurs[0]=d
 
 def getNbJoueurs(joueurs):
     """
@@ -66,7 +81,7 @@ def getNbJoueurs(joueurs):
     paramètre: joueurs la liste des joueurs
     résultat: le nombre de joueurs de la partie
     """
-    pass
+    return len(joueurs)
 
 def getJoueurCourant(joueurs):
     """
@@ -74,7 +89,7 @@ def getJoueurCourant(joueurs):
     paramètre: joueurs la liste des joueurs
     résultat: le joueur courant
     """
-    pass
+    return joueurs[0]
 
 def joueurCourantTrouveTresor(joueurs):
     """
@@ -83,7 +98,7 @@ def joueurCourantTrouveTresor(joueurs):
     paramètre: joueurs la liste des joueurs
     cette fonction ne retourne rien mais modifie la liste des joueurs
     """
-    pass
+    del(joueurs[0]["tresor"][0])
 
 def nbTresorsRestantsJoueur(joueurs,numJoueur):
     """
@@ -93,7 +108,7 @@ def nbTresorsRestantsJoueur(joueurs,numJoueur):
                 numJoueur le numéro du joueur
     résultat: le nombre de trésors que joueur numJoueur doit encore trouver
     """
-    pass
+    return len(joueurs[numJoueur]["tresor"])
 
 def numJoueurCourant(joueurs):
     """
@@ -101,6 +116,7 @@ def numJoueurCourant(joueurs):
     paramètre: joueurs la liste des joueurs
     résultat: le numéro du joueur courant
     """
+    #demander au prof
     pass
 
 def nomJoueurCourant(joueurs):
@@ -109,7 +125,7 @@ def nomJoueurCourant(joueurs):
     paramètre: joueurs la liste des joueurs
     résultat: le nom du joueur courant
     """
-    pass
+    return joueurs[0]["nom"]
 
 def nomJoueur(joueurs,numJoueur):
     """
@@ -118,7 +134,7 @@ def nomJoueur(joueurs,numJoueur):
                 numJoueur le numéro du joueur    
     résultat: le nom du joueur numJoueur
     """
-    pass
+    return joueurs[numJoueur]["nom"]
 
 def prochainTresorJoueur(joueurs,numJoueur):
     """
@@ -147,10 +163,18 @@ def joueurCourantAFini(joueurs):
 
 
 if __name__=='__main__':
-  j=ListeJoueurs(['jason','emerick','toto'])
+  j=joueurs
   print(j)
   ajouterJoueur(j, 'momo')
   print(j)
   initAleatoireJoueurCourant(j)
   print(j)
- 
+  print(distribuerTresors(joueurs,nbTresors=24, nbTresorMax=0))
+  print(j)
+  print(changerJoueurCourant(joueurs))
+  print(getNbJoueurs(joueurs))
+  print(j)
+  print(getJoueurCourant(joueurs))
+  print(nbTresorsRestantsJoueur(joueurs,numJoueur=0))
+  print(numJoueurCourant(joueurs))
+  print(nomJoueurCourant(joueurs))
