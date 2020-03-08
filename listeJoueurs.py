@@ -36,6 +36,8 @@ def initAleatoireJoueurCourant(joueurs):
     cette fonction ne retourne rien mais modifie la liste des joueurs
     """
     pass
+
+
 def distribuerTresors(joueurs,nbTresors=24, nbTresorMax=0):
     """
     distribue de manière aléatoire des trésors entre les joueurs.
@@ -142,3 +144,13 @@ def joueurCourantAFini(joueurs):
     résultat: un booleen indiquant si le joueur courant a fini
     """
     pass
+
+
+if __name__=='__main__':
+  j=ListeJoueurs(['jason','emerick','toto'])
+  print(j)
+  ajouterJoueur(j, 'momo')
+  print(j)
+  initAleatoireJoueurCourant(j)
+  print(j)
+ 
