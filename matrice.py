@@ -25,13 +25,12 @@ def Matrice(nbLignes,nbColonnes,valeurParDefaut=0):
     """
     l1=[]
     l2=[]
-    for i in range(nbColonnes):
-        l1.append(valeurParDefaut)
     for i in range(nbLignes):
+        l1=[valeurParDefaut]*nbColonnes
         l2.append(l1)
     return l2
-#matrice = Matrice(7,7,0)
-matrice =[[1,2,3,4,5,6,7],[8,9,10,11,12,13,14],[15,16,17,18,19,20,21],[22,23,24,25,26,27,28]]
+matrice = Matrice(7,7,0)
+#matrice =[[1,2,3,4,5,6,7],[8,9,10,11,12,13,14],[15,16,17,18,19,20,21],[22,23,24,25,26,27,28]]
 
 def getNbLignes(matrice):
     """
@@ -111,21 +110,12 @@ def decalageColonneEnHaut(matrice, numCol, nouvelleValeur=0):
                  nouvelleValeur la valeur à placer
     résultat: la valeur de la case "ejectée" par le décalage
     """
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> origin/master
     valeur_a_ejecter=matrice[0][numCol]
     for i in range(len(matrice)-1):
       matrice[i][numCol]=matrice[i+1][numCol]
     matrice[-1][numCol]=nouvelleValeur
     return valeur_a_ejecter
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
+
 def decalageColonneEnBas(matrice, numCol, nouvelleValeur=0):
     """
     decale la colonne numCol d'une case vers le bas en insérant une nouvelle
@@ -135,37 +125,17 @@ def decalageColonneEnBas(matrice, numCol, nouvelleValeur=0):
                  nouvelleValeur la valeur à placer
     résultat: la valeur de la case "ejectée" par le décalage
     """
-<<<<<<< HEAD
-<<<<<<< HEAD
     a=matrice[-1][numCol]
     Matrice1=matrice
-    for i in matrice:
+    for i in range(len(matrice)):
       matrice[i+1][numCol]=Matrice1[i][numCol]
     matrice[0][numCol]=nouvelleValeur
     return a
 
-if __name__=='__main__':
-  Matrice=[[0,1,2,3],[4,5,6,7],[8,9,10,11],[14,15,16,17]]
-  print(Matrice)
-  print(decalageColonneEnBas(Matrice, 1,12))
-  print(Matrice)
-=======
-=======
->>>>>>> origin/master
-    valeur_a_ejecter=matrice[-1][numCol]
-    valeur_stocke=[]
-    for i in range(len(matrice)-1):
-      valeur_stocke.extend(matrice[i+1])
-      matrice[i].insert(numCol,valeur_stocke[i])
-    #matrice[0][numCol]=nouvelleValeur
-    return valeur_a_ejecter
+
 if __name__=="__main__" :
   x=matrice
   print(x)
   print(decalageColonneEnBas(x, numCol=3, nouvelleValeur=9))
-<<<<<<< HEAD
   print(x)
->>>>>>> origin/master
-=======
   print(x)
->>>>>>> origin/master

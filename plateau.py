@@ -22,7 +22,44 @@ def Plateau(nbJoueurs, nbTresors):
                 ont été placée de manière aléatoire
               - la carte amovible qui n'a pas été placée sur le plateau
     """
-    pass
+    liste_tresor=[]
+    for i in range(nbTresors):
+      liste_tresor.append(i+1)
+    for i in range(len(matrice)):
+      for j in range(len(matrice)):
+        nord=random.choice([True,False])
+        est=random.choice([True,False])
+        sud=random.choice([True,False])
+        ouest=random.choice([True,False])
+        a=Carte( nord, est, sud, ouest, tresor=0, pions=[])
+        if not estValide(a):
+          while not estValide(a):
+            nord=random.choice([True,False])
+            est=random.choice([True,False])
+            sud=random.choice([True,False])
+            ouest=random.choice([True,False])
+            a=Carte( nord, est, sud, ouest, tresor=0, pions=[])
+        if len(liste_tresor)==0:
+          pass
+        elif random.choice([True,False]):
+          T=random.choice(liste_tresor)
+          a['tresor']=T
+          liste_tresor.remove(T)
+        setVal(matrice,i,j,a)
+    nord=random.choice([True,False])
+    est=random.choice([True,False])
+    sud=random.choice([True,False])
+    ouest=random.choice([True,False])
+    b=Carte( nord, est, sud, ouest, tresor=0, pions=[])
+    if not estValide(b):
+          while not estValide(b):
+            nord=random.choice([True,False])
+            est=random.choice([True,False])
+            sud=random.choice([True,False])
+            ouest=random.choice([True,False])
+            b=Carte( nord, est, sud, ouest, tresor=0, pions=[])
+    return (matrice, b)
+
 
 
 
@@ -120,3 +157,8 @@ def accessibleDist(plateau,ligD,colD,ligA,colA):
               de départ et la case d'arrivée
     """
     pass
+
+
+
+if __name__=='__main__':
+  print(Plateau(2, 20))
