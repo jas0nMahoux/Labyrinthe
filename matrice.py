@@ -116,6 +116,7 @@ def decalageColonneEnHaut(matrice, numCol, nouvelleValeur=0):
     matrice[-1][numCol]=nouvelleValeur
     return valeur_a_ejecter
 
+
 def decalageColonneEnBas(matrice, numCol, nouvelleValeur=0):
     """
     decale la colonne numCol d'une case vers le bas en insérant une nouvelle
@@ -132,10 +133,9 @@ def decalageColonneEnBas(matrice, numCol, nouvelleValeur=0):
     matrice[0][numCol]=nouvelleValeur
     return a
 
-
+    
 if __name__=="__main__" :
   x=matrice
   print(x)
   print(decalageColonneEnBas(x, numCol=3, nouvelleValeur=9))
-  print(x)
-  print(x)
+

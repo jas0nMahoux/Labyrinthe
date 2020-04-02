@@ -106,10 +106,7 @@ def getNbPions(c):
     retourne le nombre de pions se trouvant sur la carte
     paramètre: c une carte
     """
-    Nb_pions=0
-    for x in C["pions"]:
-      Nb_pions+=1
-    return Nb_pions
+    return len(c["pions"])
 
 def possedePion(c,pion):
     """
@@ -117,10 +114,7 @@ def possedePion(c,pion):
     paramètres: c une carte
                 pion un entier compris entre 1 et 4
     """
-    if pion in c["pions"]:
-      return True
-    else:
-      return False
+    return pion in c["pions"]
 
 def getTresor(c):
     """

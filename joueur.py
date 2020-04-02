@@ -18,7 +18,10 @@ def Joueur(nom):
     joueur={}
     joueur['nom']=nom
     joueur['tresor']=[]
+<<<<<<< HEAD
     joueur["numJoueurs"]=0
+=======
+>>>>>>> origin/master
     return joueur
 
 def ajouterTresor(joueur,tresor):
