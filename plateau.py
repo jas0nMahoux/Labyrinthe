@@ -97,7 +97,42 @@ def creerCartesAmovibles(tresorDebut,nbTresors):
                 nbTresors: le nombre total de trésor à créer
     résultat: la liste mélangée aléatoirement des cartes amovibles créees
     """
-    pass
+    cartesAmovibles=[]
+    i=0
+    while i<=33:
+      if i<=15:
+        cartesAmovibles.append(Carte(True,False,False,True,0,[]))
+      elif 15<=i<=21:
+        cartesAmovibles.append(Carte(True,False,False,False,0,[]))
+      else:
+        cartesAmovibles.append(Carte(False,True,True,False,0,[]))
+      i+=1
+    tresors=list(range(tresorDebut,nbTresors+1))
+    cpt=0
+    for a in cartesAmovibles:
+      if cpt>=len(tresors):
+        break
+      mettreTresor(a,tresors[cpt])
+      cpt+=1
+    random.shuffle(cartesAmovibles)
+    return cartesAmovibles
+
+
+
+def prendreTresorPlateau(plateau,lig,col,numTresor):
+    """
+    prend le tresor numTresor qui se trouve sur la carte en lin,col du plateau
+    retourne True si l'opération s'est bien passée (le trésor était vraiment sur
+    la carte
+    paramètres: plateau: le plateau considéré
+                lig: la ligne où se trouve la carte
+                col: la colonne où se trouve la carte
+                numTresor: le numéro du trésor à prendre sur la carte
+    resultat: un booléen indiquant si le trésor était bien sur la carte considérée
+    """
+    if numTresor==prendreTresor(getVal(plateau[0],lig,col)):
+	    return True
+    return False
 
 def prendreTresorPlateau(plateau,lig,col,numTresor):
     """
@@ -177,8 +212,39 @@ def accessible(plateau,ligD,colD,ligA,colA):
     résultat: un boolean indiquant s'il existe un chemin entre la case de départ
               et la case d'arrivée
     """
-    pass
-
+    
+    trouve=False
+    STOP=False
+    cartes_accessibles=[[ligD,colD]]
+    passage=0
+    while not trouve and not STOP:
+        for carte in cartes_accessibles:
+          if carte[0]-1>=0:
+            if [carte[0]-1, carte[1]] not in cartes_accessibles:
+              if passageNord(plateau[0][carte[0]][carte[1]], plateau[0][carte[0]-1][carte[1]])==True:
+                      cartes_accessibles.append([carte[0]-1, carte[1]])
+                      passage+=1
+          if (carte[0]+1)<7:
+              if [carte[0]+1, carte[1]] not in cartes_accessibles:
+                  if passageSud(plateau[0][carte[0]][carte[1]], plateau[0][carte[0]+1][carte[1]])==True:
+                      cartes_accessibles.append([carte[0]+1, carte[1]])
+                      passage+=1
+          if (carte[1]-1)>=0:
+              if [carte[0], carte[1]-1] not in cartes_accessibles:
+                  if passageOuest(plateau[0][carte[0]][carte[1]], plateau[0][carte[0]][carte[1]-1])==True:
+                      cartes_accessibles.append([carte[0], carte[1]-1])
+                      passage+=1
+          if (carte[1]+1)<7:
+              if [carte[0], carte[1]+1] not in cartes_accessibles:
+                  if passageEst(plateau[0][carte[0]][carte[1]], plateau[0][carte[0]][carte[1]+1])==True:
+                      cartes_accessibles.append([carte[0], carte[1]+1])
+                      passage+=1
+          if [ligA, colA] in cartes_accessibles:
+            return True
+        if passage==0:
+          STOP=True
+        passage=0
+    return False
 
 def accessibleDist(plateau,ligD,colD,ligA,colA):
     """
@@ -198,8 +264,11 @@ def accessibleDist(plateau,ligD,colD,ligA,colA):
 
 
 
+
+
 if __name__=='__main__':
 
   x=Plateau(2, 20)
   print(x)
   print(getCoordonneesJoueur(x,2))
+  print(accessible(x,1,2,1,5))

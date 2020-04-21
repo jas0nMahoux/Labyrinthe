@@ -1,13 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-    Projet Labyrinthe
-    Projet Python 2020 - Licence Informatique UNC (S3 TREC7)
-
-   Module listeJoueurs
-   ~~~~~~~~~~~~~~~~~~~
-   
-   Ce module gère la liste des joueurs. 
-"""
 import random
 from joueur import *
 
@@ -18,12 +8,15 @@ def ListeJoueurs(nomsJoueurs):
     paramètre: nomsJoueurs une liste de chaines de caractères
     résultat: la liste des joueurs avec un joueur courant mis à 0
     """
-    listejoueurs=[]
-    for elem in nomsJoueurs:
-      listejoueurs.append(Joueur(elem))
-    return listejoueurs
+    joueurs={}
+    Liste_Joueurs=[]
+    for joueur in nomsJoueurs:
+      Liste_Joueurs.append(Joueur(joueur))
+    joueurs["liste_joueurs"]=Liste_Joueurs
+    joueurs["joueur_Courant"]=0
+    return joueurs
 
-joueurs=ListeJoueurs(['jason','emerick','toto'])
+
 def ajouterJoueur(joueurs, joueur):
     """
     ajoute un nouveau joueur à la fin de la liste
@@ -31,30 +24,19 @@ def ajouterJoueur(joueurs, joueur):
                 joueur le joueur à ajouter
     cette fonction ne retourne rien mais modifie la liste des joueurs
     """
-    joueurs.append(joueur)
+    joueurs["liste_joueurs"].append(joueur)
+    
 
 def initAleatoireJoueurCourant(joueurs):
     """
     tire au sort le joueur courant
-    paramètre: joueurs un liste de joueurs
+    paramètre: joueurs une liste de joueurs
     cette fonction ne retourne rien mais modifie la liste des joueurs
     """
-<<<<<<< HEAD
-<<<<<<< HEAD
-    pass
-
+    joueurs["joueur_Courant"]=random.choice(list(range(0,len(joueurs["liste_joueurs"]))))
+    
 
 def distribuerTresors(joueurs,nbTresors=24, nbTresorMax=0):
-    random.shuffle(joueurs)
-
-=======
-    random.shuffle(joueurs)
->>>>>>> origin/master
-=======
-    random.shuffle(joueurs)
-    
->>>>>>> origin/master
-def distribuerTresors(joueurs,nbTresors=24, nbTresorMax=2):
     """
     distribue de manière aléatoire des trésors entre les joueurs.
     paramètres: joueurs la liste des joueurs
@@ -66,27 +48,54 @@ def distribuerTresors(joueurs,nbTresors=24, nbTresorMax=2):
                              de trésor possible  
     cette fonction ne retourne rien mais modifie la liste des joueurs
     """
-    if nbTresorMax == 0:
-<<<<<<< HEAD
-        pass
-=======
-      nbTresorMax = nbTresors
->>>>>>> origin/master
-    for i in range(nbTresors):
-      if i<nbTresorMax:
-        nb_aleatoire=random.randint(0,len(joueurs))
-        joueurs[nb_aleatoire]["tresor"].append(i)
-    #pas claire
+    tresor= list(range(1,nbTresors+1))
+    random.shuffle(tresor)
+    if nbTresorMax==0:
+      i=0
+      stop=False
+      while i<len(tresor):
+        cpt=0
+        while cpt<len(joueurs["liste_joueurs"]) and i<len(tresor):
+          ajouterTresor(joueurs["liste_joueurs"][cpt],tresor[i])
+          cpt+=1
+          i+=1
+      nombre_Joueurs=getNbJoueurs(joueurs)
+      if nbTresors%nombre_Joueurs!=0:
+        if (nbTresors-1)%nombre_Joueurs==0:
+          tresorTrouve(joueurs["liste_joueurs"][0])
+        elif (nbTresors-2)%nombre_Joueurs==0:
+          tresorTrouve(joueurs["liste_joueurs"][0])
+          tresorTrouve(joueurs["liste_joueurs"][1])
+        elif (nbTresors-3)%nombre_Joueurs==0:
+          tresorTrouve(joueurs["liste_joueurs"][0])
+          tresorTrouve(joueurs["liste_joueurs"][1])
+          tresorTrouve(joueurs["liste_joueurs"][2])          
+    if nbTresorMax!=0:
+      i=0
+      stop=False
+      while i<(len(joueurs)*nbTresorMax) and stop==False:
+        cpt=0
+        if len(tresor)==0:
+            stop=True
+        while cpt<len(joueurs) and stop==False:
+          if i<len(tresor):
+            stop=True
+          ajouterTresor(joueurs["liste_joueurs"][cpt],tresor[i])
+          cpt+=1
+          i+=1
+
+
 
 def changerJoueurCourant(joueurs):
     """
     passe au joueur suivant (change le joueur courant donc)
     paramètres: joueurs la liste des joueurs
     cette fonction ne retourne rien mais modifie la liste des joueurs
-    """   
-    d=joueurs[1]
-    joueurs[1]=joueurs[0]
-    joueurs[0]=d
+    """
+    if (joueurs["joueur_Courant"]+1)==len(joueurs["liste_joueurs"]):
+      joueurs["joueur_Courant"]=0
+    else:
+      joueurs["joueur_Courant"]+=1
 
 def getNbJoueurs(joueurs):
     """
@@ -94,7 +103,7 @@ def getNbJoueurs(joueurs):
     paramètre: joueurs la liste des joueurs
     résultat: le nombre de joueurs de la partie
     """
-    return len(joueurs)
+    return len(joueurs["liste_joueurs"])
 
 def getJoueurCourant(joueurs):
     """
@@ -102,7 +111,7 @@ def getJoueurCourant(joueurs):
     paramètre: joueurs la liste des joueurs
     résultat: le joueur courant
     """
-    return joueurs[0]
+    return joueurs["liste_joueurs"][joueurs["joueur_Courant"]]
 
 def joueurCourantTrouveTresor(joueurs):
     """
@@ -111,11 +120,7 @@ def joueurCourantTrouveTresor(joueurs):
     paramètre: joueurs la liste des joueurs
     cette fonction ne retourne rien mais modifie la liste des joueurs
     """
-<<<<<<< HEAD
-    del(joueurs[0]["tresor"][0])
-=======
-    tresorTrouve(joueurs[0])
->>>>>>> origin/master
+    tresorTrouve(joueurs["liste_joueurs"][joueurs["joueur_Courant"]])
 
 def nbTresorsRestantsJoueur(joueurs,numJoueur):
     """
@@ -125,11 +130,7 @@ def nbTresorsRestantsJoueur(joueurs,numJoueur):
                 numJoueur le numéro du joueur
     résultat: le nombre de trésors que joueur numJoueur doit encore trouver
     """
-<<<<<<< HEAD
-    return len(joueurs[numJoueur]["tresor"])
-=======
-    return getNbTresorsRestants(joueurs[numJoueur])
->>>>>>> origin/master
+    return getNbTresorsRestants(joueurs["liste_joueurs"][numJoueur-1])
 
 def numJoueurCourant(joueurs):
     """
@@ -137,8 +138,7 @@ def numJoueurCourant(joueurs):
     paramètre: joueurs la liste des joueurs
     résultat: le numéro du joueur courant
     """
-    #demander au prof
-    pass
+    return joueurs["joueur_Courant"]
 
 def nomJoueurCourant(joueurs):
     """
@@ -146,11 +146,7 @@ def nomJoueurCourant(joueurs):
     paramètre: joueurs la liste des joueurs
     résultat: le nom du joueur courant
     """
-<<<<<<< HEAD
-    return joueurs[0]["nom"]
-=======
-    return getNom(joueurs[0])
->>>>>>> origin/master
+    return getNom(joueurs["liste_joueurs"][joueurs["joueur_Courant"]])
 
 def nomJoueur(joueurs,numJoueur):
     """
@@ -159,11 +155,7 @@ def nomJoueur(joueurs,numJoueur):
                 numJoueur le numéro du joueur    
     résultat: le nom du joueur numJoueur
     """
-<<<<<<< HEAD
-    return joueurs[numJoueur]["nom"]
-=======
-    return getNom(joueurs[numJoueur])
->>>>>>> origin/master
+    return getNom(joueurs["liste_joueurs"][numJoueur-1])
 
 def prochainTresorJoueur(joueurs,numJoueur):
     """
@@ -172,7 +164,7 @@ def prochainTresorJoueur(joueurs,numJoueur):
                 numJoueur le numéro du joueur    
     résultat: le prochain trésor du joueur numJoueur (un entier)
     """
-    return prochainTresor(joueurs[numJoueur])
+    return prochainTresor(joueurs["liste_joueurs"][numJoueur-1])
 
 def tresorCourant(joueurs):
     """
@@ -180,7 +172,7 @@ def tresorCourant(joueurs):
     paramètre: joueurs la liste des joueurs 
     résultat: le prochain trésor du joueur courant (un entier)
     """
-    return prochainTresor(joueurs[0])
+    return prochainTresor(joueurs["liste_joueurs"][joueurs["joueur_Courant"]])
 
 def joueurCourantAFini(joueurs):
     """
@@ -188,43 +180,30 @@ def joueurCourantAFini(joueurs):
     paramètre: joueurs la liste des joueurs 
     résultat: un booleen indiquant si le joueur courant a fini
     """
-<<<<<<< HEAD
-    pass
-<<<<<<< HEAD
-
-
-=======
->>>>>>> origin/master
-=======
-    if getNbTresorsRestants(joueurs[0]) == []:
+    if prochainTresor(joueurs["liste_joueurs"][joueurs["joueur_Courant"]])==None:
       return True
-    else : 
+    else:
       return False
-    
->>>>>>> origin/master
-if __name__=='__main__':
-  j=joueurs
-  print(j)
-  ajouterJoueur(j, 'momo')
-  print(j)
-  initAleatoireJoueurCourant(j)
-  print(j)
-  print(distribuerTresors(joueurs,nbTresors=24, nbTresorMax=0))
-  print(j)
-  print(changerJoueurCourant(joueurs))
-  print(getNbJoueurs(joueurs))
-  print(j)
-  print(getJoueurCourant(joueurs))
-  print(nbTresorsRestantsJoueur(joueurs,numJoueur=0))
-  print(numJoueurCourant(joueurs))
-<<<<<<< HEAD
-<<<<<<< HEAD
-  print(nomJoueurCourant(joueurs))
-=======
-  print(nomJoueurCourant(joueurs))
->>>>>>> origin/master
-=======
-  print(nomJoueurCourant(joueurs))
 
-
->>>>>>> origin/master
+if __name__=="__main__":
+  Li=(ListeJoueurs(["jason","emerick"]))
+  print(Li)
+  print(initAleatoireJoueurCourant(Li))
+  print(Li)
+  print(ajouterJoueur(Li,Joueur("Damien")))
+  print(Li)
+  print(distribuerTresors(Li,nbTresors=30, nbTresorMax=11))
+  print(Li)
+  print(changerJoueurCourant(Li))
+  print(Li)
+  print(getNbJoueurs(Li))
+  print(getJoueurCourant(Li))
+  print(joueurCourantTrouveTresor(Li))
+  print(nbTresorsRestantsJoueur(Li,1))
+  print(numJoueurCourant(Li))
+  print(nomJoueurCourant(Li))
+  print(nomJoueur(Li,2))
+  print(prochainTresorJoueur(Li,2))
+  print(Li)
+  print(tresorCourant(Li))
+  print(joueurCourantAFini(Li))

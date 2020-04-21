@@ -1,5 +1,5 @@
 language = "python3"
-  run = "python3 plateau.py"
+  run = "python3 labyrintheTexte.py"
 
 
   

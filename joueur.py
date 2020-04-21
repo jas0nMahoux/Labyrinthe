@@ -18,10 +18,7 @@ def Joueur(nom):
     joueur={}
     joueur['nom']=nom
     joueur['tresor']=[]
-<<<<<<< HEAD
     joueur["numJoueurs"]=0
-=======
->>>>>>> origin/master
     return joueur
 
 def ajouterTresor(joueur,tresor):
@@ -56,7 +53,10 @@ def tresorTrouve(joueur):
         joueur le joueur
     la fonction ne retourne rien mais modifie le joueur
     """
-    del joueur['tresor'][0]
+    if len(joueur['tresor'])==0:
+      pass
+    else:
+      del joueur['tresor'][0]
 
 def getNbTresorsRestants(joueur):
     """
